@@ -1,0 +1,3 @@
+para el envio de UsuarioRequest 
+1: será usuario normal
+2: será administradore
