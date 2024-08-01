@@ -28,10 +28,10 @@ public class Tratamiento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_tratamiento")
-    private long id_tratamiento;
+    private Long id_tratamiento;
 
     @Column(name = "tipo_tratamiento", nullable = false)
-    private ETipoTratamiento tipo_tratamiento;
+    private String tipo_tratamiento;
 
     @Column(name = "fecha_inicio", nullable = false)
     private Date fecha_inicio;
@@ -55,7 +55,5 @@ public class Tratamiento {
     private String observaciones;
 
     @Column(name = "estado")
-    private int estado;
-
-    
+    private Integer estado;
 }
