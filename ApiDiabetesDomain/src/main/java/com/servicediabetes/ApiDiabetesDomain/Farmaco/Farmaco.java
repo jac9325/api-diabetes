@@ -56,11 +56,11 @@ public class Farmaco {
     @Column(name = "indicaciones", nullable = false)
     private String indicaciones;
 
-    @Column(name = "timepoInicio", nullable = false)
-    private Date timepoInicio;
+    @Column(name = "tiempoinicio", nullable = false)
+    private Date timepoinicio;
 
-    @Column(name = "efecttosSecundarios", nullable = false)
-    private String efecttosSecundarios;
+    @Column(name = "efectossecundarios", nullable = false)
+    private String efectossecundarios;
     
     @Column(name = "estado", nullable = false)
     private Integer estado;

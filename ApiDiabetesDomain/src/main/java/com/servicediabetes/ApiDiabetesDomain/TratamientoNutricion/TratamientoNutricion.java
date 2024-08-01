@@ -42,4 +42,5 @@ public class TratamientoNutricion {
     @ManyToOne
     @JoinColumn(name="id_nutricion")
     private Nutricion nutricion;
+    
 }

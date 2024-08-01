@@ -4,6 +4,7 @@
  */
 package com.servicediabetes.ApiDiabetesDomain.TratamientoFarmaco;
 
+import com.servicediabetes.ApiDiabetesDomain.Farmaco.Farmaco;
 import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Tratamiento;
 
 import jakarta.persistence.Column;
@@ -37,5 +38,9 @@ public class TratamientoFarmaco {
     @ManyToOne
     @JoinColumn(name="id_tratamiento")
     private Tratamiento tratamiento;
+    
+    @ManyToOne
+    @JoinColumn(name="id_farmaco")
+    private Farmaco farmaco;
 
 }
