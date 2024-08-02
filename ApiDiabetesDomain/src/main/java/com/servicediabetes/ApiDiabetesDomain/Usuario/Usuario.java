@@ -34,7 +34,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_usuario")
-    private long id_usuario;
+    private Long id_usuario;
 
     @Column(name = "nombre_apellido", nullable = false)
     private String nombre_apellido;
@@ -54,22 +54,22 @@ public class Usuario {
     @Column(name = "fecha_nacimiento", nullable = false)
     private Date fecha_nacimiento;
     
-    @Column(name = "fecha_registro_app", nullable = false)
+    @Column(name = "fecha_registro_app")
     private Date fecha_registro_app;
 
-    @Column(name = "altura", nullable = false)
+    @Column(name = "altura")
     private BigDecimal altura;
 
-    @Column(name = "peso", nullable = false)
+    @Column(name = "peso")
     private BigDecimal peso;
     
-    @Column(name = "alergias", nullable = false)
+    @Column(name = "alergias")
     private String alergias;
 
-    @Column(name = "estado")
-    private int estado;
+    @Column(name = "estado", nullable = false)
+    private Integer estado;
     
-    @Column(name = "foto_usuario", nullable = false)
+    @Column(name = "foto_usuario")
     private String foto_usuario;
     
     @ManyToOne

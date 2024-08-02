@@ -1,7 +1,8 @@
 package com.servicediabetes.ApiDiabetesDomain.Usuario.Helpers;
 
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -17,23 +18,22 @@ public class CastUser {
 
         Usuario usuario = new Usuario();
         usuario.setNombre_apellido(usuarioRequest.getNombre_apellido());
+        usuario.setNumero(usuarioRequest.getNumero());
         usuario.setCorreo(usuarioRequest.getCorreo());
         usuario.setEdad(usuarioRequest.getEdad());
         usuario.setContrasena(usuarioRequest.getContrasena());
         usuario.setFecha_nacimiento(usuarioRequest.getFecha_nacimiento()); 
-
-        // Completar los campos restantes con valores predeterminados
-        usuario.setNumero(""); 
-        usuario.setAltura(BigDecimal.ZERO); 
-        usuario.setPeso(BigDecimal.ZERO); 
-        usuario.setAlergias(""); 
-        usuario.setEstado(1); 
-        usuario.setFoto_usuario(" "); 
-        usuario.setFecha_registro_app(new Date());       
+        usuario.setFecha_registro_app(new Date());
+        usuario.setAltura(usuarioRequest.getAltura());
+        usuario.setPeso(usuarioRequest.getAltura());
+        usuario.setAlergias(usuarioRequest.getAlergias());
+        usuario.setEstado(1);
+        usuario.setFoto_usuario(usuarioRequest.getFoto_usuario());      
 
         RolUsuario currentRole = new RolUsuario();
         currentRole.setId_rol_usuario(1);
-        usuario.setRolUsuario(currentRole);     
+        usuario.setRolUsuario(currentRole);
+
         return usuario;
     }
 
@@ -45,7 +45,6 @@ public class CastUser {
         usuarioResponse.setNumero(usuario.getNumero());
         usuarioResponse.setCorreo(usuario.getCorreo());
         usuarioResponse.setEdad(usuario.getEdad());
-        usuarioResponse.setContrasena(usuario.getContrasena());
         usuarioResponse.setFecha_nacimiento(usuario.getFecha_nacimiento());
         usuarioResponse.setFecha_registro_app(usuario.getFecha_registro_app());
         usuarioResponse.setAltura(usuario.getAltura());
@@ -56,5 +55,11 @@ public class CastUser {
         usuarioResponse.setId_rol_usuario(usuario.getRolUsuario().getId_rol_usuario());
 
         return usuarioResponse;
+    }
+
+    public List<UsuarioResponse> castListUserResponse(List<Usuario> listUsers){
+        return listUsers.stream()
+                .map(this::castUsuarioResponse)
+                .collect(Collectors.toList());
     }
 }
