@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.servicediabetes.ApiDiabetesDomain.Tratamiento;
 
 import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Dtos.ETipoTratamiento;
