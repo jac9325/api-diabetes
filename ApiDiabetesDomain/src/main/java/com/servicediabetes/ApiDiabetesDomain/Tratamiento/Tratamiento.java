@@ -1,11 +1,13 @@
 package com.servicediabetes.ApiDiabetesDomain.Tratamiento;
 
+import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Dtos.ETipoTratamiento;
 import java.util.Date;
 
-import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Dtos.ETipoTratamiento;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,8 +30,9 @@ public class Tratamiento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_tratamiento")
-    private long id_tratamiento;
+    private Long id_tratamiento;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_tratamiento", nullable = false)
     private ETipoTratamiento tipo_tratamiento;
 
@@ -55,7 +58,7 @@ public class Tratamiento {
     private String observaciones;
 
     @Column(name = "estado")
-    private int estado;
+    private Integer estado;
 
     
 }
