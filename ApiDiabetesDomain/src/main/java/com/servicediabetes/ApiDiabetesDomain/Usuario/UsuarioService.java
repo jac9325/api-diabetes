@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+package com.servicediabetes.ApiDiabetesDomain.Usuario;
+
+import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioRequest;
+import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioResponse;
+
+public interface UsuarioService {
+    UsuarioResponse registerUser(UsuarioRequest userRequest);
+=======
 package com.servicediabetes.ApiDiabetesDomain.Usuario;
 
 import java.nio.file.Path;
@@ -15,4 +24,5 @@ public interface UsuarioService {
     Boolean deleteUser(Long id);
     Path getURL();
     DatosGenericos getAllFarmacoEjercicioNutricion();
+>>>>>>> master
 }

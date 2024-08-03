@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+package com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos;
+
+import java.sql.Date;
+
+import lombok.Data;
+
+@Data
+public class UsuarioRequest {
+
+    private String nombre_apellido;
+    private String correo;
+    private Integer edad;
+    private String contrasena;
+    private Date fecha_nacimiento;
+=======
 package com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos;
 
 import java.math.BigDecimal;
@@ -19,4 +35,5 @@ public class UsuarioRequest {
     private String alergias;
     private Integer estado;
     private String foto_usuario;
+>>>>>>> master
 }
