@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 public class FarmacoDtos {
-    private long id_farmaco;
+    private Long id_farmaco;
     private String dosis;
     private String frecuencia;
     private String nombre;

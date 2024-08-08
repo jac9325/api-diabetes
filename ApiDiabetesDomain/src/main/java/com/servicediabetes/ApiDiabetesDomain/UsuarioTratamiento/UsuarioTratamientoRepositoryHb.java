@@ -7,6 +7,9 @@ package com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,6 +30,12 @@ public class UsuarioTratamientoRepositoryHb {
         //query.setParameter("precio", ); aqui entran los poarametros
         UsuarioTratamiento inst = (UsuarioTratamiento) query.getSingleResult();
         return inst;
+    }
+
+    public List<UsuarioTratamiento> getAllUsuarioTratamientoHabilitados(){
+        String hql = "SELECT u FROM UsuarioTratamiento u WHERE u.estado = 1";
+        Query query = entityManager.createQuery(hql, UsuarioTratamiento.class);
+        return query.getResultList();
     }
     
 }

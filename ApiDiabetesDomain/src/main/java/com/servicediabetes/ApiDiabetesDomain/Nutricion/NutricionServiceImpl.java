@@ -15,13 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class NutricionServiceImpl implements NutricionService {
     
-     private final NutricionUtils nutricionUtils;
-    private final NutricionRepository nutricionRepository;
+    private final NutricionUtils nutricionUtils;
     private final NutricionRepositoryHb nutricionRepositoryHb;
     
-    public NutricionServiceImpl(NutricionUtils nutricionUtils, NutricionRepository nutricionRepository, NutricionRepositoryHb nutricionRepositoryHb) {
+    public NutricionServiceImpl(NutricionUtils nutricionUtils, NutricionRepositoryHb nutricionRepositoryHb) {
         this.nutricionUtils = nutricionUtils;
-        this.nutricionRepository = nutricionRepository;
         this.nutricionRepositoryHb = nutricionRepositoryHb;
     }
 

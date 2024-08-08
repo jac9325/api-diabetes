@@ -15,5 +15,5 @@ public class TratamientoNutricionDtos {
     private Long id_tratamiento_nutricion;
     private Long id_tratamiento;
     private Long id_nutricion;
-    
+    private Integer estado;
 }

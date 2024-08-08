@@ -5,6 +5,9 @@
 package com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento;
 
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,5 +52,20 @@ public class UsuarioTratamientoServiceImpl implements UsuarioTratamientoService 
             throw new RuntimeException(e.getMessage());
         }
     }
-    
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<UsuarioTratamientoDtos> getAllUsuarioTratamientoHabilitados() {
+        try {
+            List<UsuarioTratamiento> currentListUsuarioTratamiento = usuarioTratamientoRepositoryHb.getAllUsuarioTratamientoHabilitados();
+            if (currentListUsuarioTratamiento == null || currentListUsuarioTratamiento.isEmpty()) {
+                return null;
+            } else {
+                List<UsuarioTratamientoDtos> listUsuarioTratamientoDtos = usuarioTratamientoUtils.convertToDtoList(currentListUsuarioTratamiento);
+                return listUsuarioTratamientoDtos;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

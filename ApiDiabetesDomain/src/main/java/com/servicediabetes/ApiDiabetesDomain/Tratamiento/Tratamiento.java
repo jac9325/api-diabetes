@@ -59,6 +59,4 @@ public class Tratamiento {
 
     @Column(name = "estado")
     private Integer estado;
-
-    
 }

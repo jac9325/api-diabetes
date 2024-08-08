@@ -5,13 +5,16 @@
 package com.servicediabetes.ApiDiabetesDomain.TratamientoNutricion;
 
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Usuario
- */
+ */ 
 @AllArgsConstructor
 @Service
 public class TratamientoNutricionServiceImpl implements  TratamientoNutricionService {
@@ -35,7 +38,7 @@ public class TratamientoNutricionServiceImpl implements  TratamientoNutricionSer
     }
     @Transactional(readOnly = true)
     @Override
-    public TratamientoNutricionDtos getTratamientoNutricionById(long Id) {
+    public TratamientoNutricionDtos getTratamientoNutricionById(Long Id) {
         try {
             TratamientoNutricion tratamiento = tratamientoNutricionRepositoryHb.getTratamientoNutricionById(Id);
                 if (tratamiento == null){
@@ -49,5 +52,36 @@ public class TratamientoNutricionServiceImpl implements  TratamientoNutricionSer
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<TratamientoNutricionDtos> getAllTratamientoNutricionHabilitadosByIdTratamiento(Long id) {
+        try {
+            List<TratamientoNutricion> currentListTratamientoNutricion = tratamientoNutricionRepositoryHb.getAllTratamientoNutricionHabilitadosByIdTratamiento(id);
+            if (currentListTratamientoNutricion == null || currentListTratamientoNutricion.isEmpty()) {
+                return null;
+            } else {
+                List<TratamientoNutricionDtos> currentTratamientoNutricionDtos = tratamientoNutricionUtils.convertToDtoList(currentListTratamientoNutricion);
+                return currentTratamientoNutricionDtos;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
     
+    @Transactional(readOnly = true)
+    @Override
+    public List<TratamientoNutricionDtos> getAllTratamientoNutricionHabilitados() {
+        try {
+            List<TratamientoNutricion> currentListTratamientoNutricion = tratamientoNutricionRepositoryHb.getAllTratamientoNutricionHabilitados();
+            if (currentListTratamientoNutricion == null || currentListTratamientoNutricion.isEmpty()) {
+                return null;
+            } else {
+                List<TratamientoNutricionDtos> currentListTratamientoNutricionDtos = tratamientoNutricionUtils.convertToDtoList(currentListTratamientoNutricion);
+                return currentListTratamientoNutricionDtos;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

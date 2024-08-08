@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.servicediabetes.ApiDiabetesDomain.UsuarioEjercicio;
+package com.servicediabetes.ApiDiabetesDomain.TratamientoEjercicio;
 
 import com.servicediabetes.ApiDiabetesDomain.Middlewares.Codes;
 import com.servicediabetes.ApiDiabetesDomain.Middlewares.Messages;
@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Usuario
+ * @author Tratamiento
  */
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("api/v1/UsuarioEjercicio")
-public class UsuarioEjercicioController {
+@RequestMapping("api/v1/TratamientoEjercicio")
+public class TratamientoEjercicioController {
     
     //--Repositorios y Servicios Inicializados
     @Autowired
-    private UsuarioEjercicioService tratamientoNutricionService;
+    private TratamientoEjercicioService tratamientoNutricionService;
     
 
     Codes codes = new Codes();
@@ -36,20 +36,20 @@ public class UsuarioEjercicioController {
     ResponseUtils response = new ResponseUtils();
     
     //Metodos de Procesamiento
-    @PostMapping("/createUsuarioEjercicio")
-    public ResponseEntity<?> createUsuarioEjercicio(@RequestBody UsuarioEjercicio Request) {
+    @PostMapping("/createTratamientoEjercicio")
+    public ResponseEntity<?> createTratamientoEjercicio(@RequestBody TratamientoEjercicio Request) {
         try {
-            UsuarioEjercicioDtos userEjer = tratamientoNutricionService.createUsuarioEjercicio(Request);
+            TratamientoEjercicioDtos userEjer = tratamientoNutricionService.createTratamientoEjercicio(Request);
             return response.success(codes.created(), messages.created(), userEjer, null);
         } catch (Exception e) {
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
         }
     }
        
-    @GetMapping("/getUsuarioEjercicioById/{id}")
-    public ResponseEntity<?> getUsuarioEjercicioById(@PathVariable(value = "id") Long id) {
+    @GetMapping("/getTratamientoEjercicioById/{id}")
+    public ResponseEntity<?> getTratamientoEjercicioById(@PathVariable(value = "id") Long id) {
         try {
-            UsuarioEjercicioDtos userEjer = tratamientoNutricionService.getUsuarioEjercicioById(id);
+            TratamientoEjercicioDtos userEjer = tratamientoNutricionService.getTratamientoEjercicioById(id);
             if (userEjer == null) {
                 return response.error(codes.notFound(), messages.notFound(), null);
             } else {

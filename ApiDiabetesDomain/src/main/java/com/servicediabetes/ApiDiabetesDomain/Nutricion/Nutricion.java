@@ -31,7 +31,7 @@ public class Nutricion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_nutricion")
-    private long id_nutricion;
+    private Long id_nutricion;
 
     @Column(name = "tipo_comida", nullable = false)
     private String tipo_comida;

@@ -9,6 +9,8 @@ public interface TratamientoService {
     List<TratamientoDtos> getAllTratamiento();
     Boolean deleteTratamiento(Long id);
     TratamientoDtos updateTratamiento(Long id, TratamientoDtos request);    
+    List<TratamientoDtos> getAllTratamientosHabilitados();
+    TratamientoDtos getTratamientoHabilitadoByIdUsuario(Long id);
 }
 
 

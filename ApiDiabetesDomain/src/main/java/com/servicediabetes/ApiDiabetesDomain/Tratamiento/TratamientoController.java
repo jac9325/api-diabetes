@@ -91,4 +91,16 @@ public class TratamientoController {
 
     // Aquí puedes agregar tus nuevos métodos
 
+    @GetMapping("/getAllTratamientosHabilitados")
+    public ResponseEntity<?> getAllTratamientosHabilitados() {
+        try {
+            List<TratamientoDtos> listTratamiento = tratamientoService.getAllTratamientosHabilitados();
+            if (listTratamiento.isEmpty())
+                return response.error(codes.notFound(), messages.notFound(), null);
+            else
+                return response.ok(codes.ok(), messages.ok(), listTratamiento, null);
+        } catch (Exception e) {
+            return response.error(codes.error(),messages.error() + e.getMessage(), null);
+        }
+    }
 }

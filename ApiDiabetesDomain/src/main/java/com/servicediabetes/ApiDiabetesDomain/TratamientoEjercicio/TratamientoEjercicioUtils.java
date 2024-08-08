@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento;
+package com.servicediabetes.ApiDiabetesDomain.TratamientoEjercicio;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,18 +14,18 @@ import org.springframework.stereotype.Component;
  * @author Usuario
  */
 @Component
-public class UsuarioTratamientoUtils {
-    public UsuarioTratamientoDtos convertToDTO(UsuarioTratamiento user){
-        UsuarioTratamientoDtos current = new UsuarioTratamientoDtos();
-        current.setId_usuario_tratamiento(user.getId_usuario_tratamiento());
+public class TratamientoEjercicioUtils {
+    public TratamientoEjercicioDtos convertToDTO(TratamientoEjercicio user){
+        TratamientoEjercicioDtos current = new TratamientoEjercicioDtos();
+        current.setId_tratamiento_ejercicio(user.getId_tratamiento_ejercicio());
+        current.setId_ejercicio(user.getEjercicio().getId_ejercicio());
         current.setId_tratamiento(user.getTratamiento().getId_tratamiento());
-        current.setId_usuario(user.getUsuario().getId_usuario());
         current.setEstado(user.getEstado());
         return current;
     }
-
-    public  List<UsuarioTratamientoDtos> convertToDtoList(List<UsuarioTratamiento> listUsuarioTratamiento) {
-        return listUsuarioTratamiento.stream()
+    
+    public  List<TratamientoEjercicioDtos> convertToDtoList(List<TratamientoEjercicio> listTratamientoEjercicio) {
+        return listTratamientoEjercicio.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }

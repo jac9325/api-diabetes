@@ -16,12 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class FarmacoServiceImpl implements FarmacoService{
     
     private final FarmacoUtils farmacoUtils;
-    private final FarmacoRepository farmacoRepository;
     private final FarmacoRepositoryHb farmacoRepositoryHb;
     
-    public FarmacoServiceImpl(FarmacoUtils farmacoUtils, FarmacoRepository farmacoRepository, FarmacoRepositoryHb farmacoRepositoryHb) {
+    public FarmacoServiceImpl(FarmacoUtils farmacoUtils, FarmacoRepositoryHb farmacoRepositoryHb) {
         this.farmacoUtils = farmacoUtils;
-        this.farmacoRepository = farmacoRepository;
         this.farmacoRepositoryHb = farmacoRepositoryHb;
     }
 

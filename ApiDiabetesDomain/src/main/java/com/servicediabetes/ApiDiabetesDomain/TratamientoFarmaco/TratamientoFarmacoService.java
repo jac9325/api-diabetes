@@ -4,12 +4,15 @@
  */
 package com.servicediabetes.ApiDiabetesDomain.TratamientoFarmaco;
 
+import java.util.List;
+
 /**
  *
  * @author Usuario
  */
 public interface TratamientoFarmacoService {
     TratamientoFarmacoDtos createTratamientoFarmaco(TratamientoFarmaco Request);
-    TratamientoFarmacoDtos getTratamientoFarmacoById(long Id);
-    
+    TratamientoFarmacoDtos getTratamientoFarmacoById(Long Id);
+    List<TratamientoFarmacoDtos> getAllTratamientoFarmacoHabilitadosByIdTratamiento(Long id);
+    List<TratamientoFarmacoDtos> getAllTratamientoFarmacoHabilitados();
 }

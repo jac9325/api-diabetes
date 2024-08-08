@@ -90,11 +90,49 @@ public class TratamientoServiceImpl implements TratamientoService {
             if (tratamiento == null) {
                 return null;
             } else {
+                tratamiento.setTipo_tratamiento(request.getTipo_tratamiento());
                 tratamiento.setFecha_inicio(request.getFecha_inicio());
                 tratamiento.setFecha_fin(request.getFecha_fin());
+                tratamiento.setInstrucciones_generales(request.getInstrucciones_generales());
+                tratamiento.setInstrucciones_especiales(request.getInstrucciones_especiales());
+                tratamiento.setEfectos_secundarios(request.getEfectos_secundarios());
+                tratamiento.setNotas(request.getNotas());
+                tratamiento.setObservaciones(request.getObservaciones());
                 tratamiento = tratamientoRepository.save(tratamiento);
                 TratamientoDtos tratamientoDtos = tratamientoUtils.convertToDto(tratamiento);
                 return tratamientoDtos;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<TratamientoDtos> getAllTratamientosHabilitados() {
+        try {
+            List<Tratamiento> listResult = tratamientoRepositoryHb.getAllTratamientosHabilitados();
+            if (listResult.isEmpty()) {
+                return null;
+            } else {
+                List<TratamientoDtos> listTratamientoDtos = tratamientoUtils.convertToDtoList(listResult);
+                return listTratamientoDtos;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public TratamientoDtos getTratamientoHabilitadoByIdUsuario(Long id) {
+        try {
+            Tratamiento currentTratamiento = tratamientoRepositoryHb.getTratamientoHabilitadoByIdUsuario(id);
+            if (currentTratamiento == null) {
+                return null;
+            } else {
+                TratamientoDtos currentTratamientoDtos = tratamientoUtils.convertToDto(currentTratamiento);
+                return currentTratamientoDtos;
             }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());

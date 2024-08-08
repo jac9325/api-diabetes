@@ -7,7 +7,11 @@ package com.servicediabetes.ApiDiabetesDomain.TratamientoNutricion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
 
 /**
  *
@@ -27,5 +31,18 @@ public class TratamientoNutricionRepositoryHb {
         TratamientoNutricion inst = (TratamientoNutricion) query.getSingleResult();
         return inst;
     }
+
+    @SuppressWarnings("unchecked")
+    public List<TratamientoNutricion> getAllTratamientoNutricionHabilitadosByIdTratamiento(Long id){
+        String hql = "SELECT t FROM TratamientoNutricion t WHERE t.tratamiento.id_tratamiento = :id AND t.estado = 1";
+        Query query = entityManager.createQuery(hql, TratamientoNutricion.class)
+                .setParameter("id", id);
+        return query.getResultList();
+    }
     
+    public List<TratamientoNutricion> getAllTratamientoNutricionHabilitados(){
+        String hql = "SELECT t FROM TratamientoNutricion t WHERE t.estado = 1";
+        Query query = entityManager.createQuery(hql, TratamientoNutricion.class);
+        return query.getResultList();
+    }
 }

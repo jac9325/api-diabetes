@@ -4,7 +4,6 @@
  */
 package com.servicediabetes.ApiDiabetesDomain.Nutricion;
 
-import com.servicediabetes.ApiDiabetesDomain.Ejercicio.EjercicioService;
 import com.servicediabetes.ApiDiabetesDomain.Middlewares.Codes;
 import com.servicediabetes.ApiDiabetesDomain.Middlewares.Messages;
 import com.servicediabetes.ApiDiabetesDomain.Middlewares.ResponseUtils;

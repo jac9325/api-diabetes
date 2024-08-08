@@ -15,5 +15,5 @@ public class TratamientoFarmacoDtos {
     private Long id_tratamiento_farmaco;
     private Long id_tratamiento;
     private Long id_farmaco;
-    
+    private Integer estado;
 }

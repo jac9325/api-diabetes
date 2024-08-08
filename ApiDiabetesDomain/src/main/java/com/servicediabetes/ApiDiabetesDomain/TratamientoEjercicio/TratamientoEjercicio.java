@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.servicediabetes.ApiDiabetesDomain.TratamientoFarmaco;
+package com.servicediabetes.ApiDiabetesDomain.TratamientoEjercicio;
 
-import com.servicediabetes.ApiDiabetesDomain.Farmaco.Farmaco;
+import com.servicediabetes.ApiDiabetesDomain.Ejercicio.Ejercicio;
 import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Tratamiento;
 
 import jakarta.persistence.Column;
@@ -22,26 +22,25 @@ import lombok.NoArgsConstructor;
 /**
  *
  * @author jacs9
-*/
-
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "tratamientofarmaco")
-public class TratamientoFarmaco {
+@Table(name = "tratamientoejercicio")
+public class TratamientoEjercicio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_tratamiento_farmaco")
-    private long id_tratamiento_farmaco;
+    @Column(name = "id_tratamiento_ejercicio")
+    private long id_tratamiento_ejercicio;
 
     @ManyToOne
     @JoinColumn(name="id_tratamiento")
     private Tratamiento tratamiento;
-    
+
     @ManyToOne
-    @JoinColumn(name="id_farmaco")
-    private Farmaco farmaco;
+    @JoinColumn(name="id_ejercicio")
+    private Ejercicio ejercicio;
 
     @Column(name = "estado")
     private Integer estado;

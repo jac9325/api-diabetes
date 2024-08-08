@@ -4,6 +4,8 @@
  */
 package com.servicediabetes.ApiDiabetesDomain.TratamientoNutricion;
 
+import java.util.List;
+
 /**
  *
  * @author Usuario
@@ -11,6 +13,7 @@ package com.servicediabetes.ApiDiabetesDomain.TratamientoNutricion;
 public interface TratamientoNutricionService {
     
     TratamientoNutricionDtos createTratamientoNutricion(TratamientoNutricion Request);
-    TratamientoNutricionDtos getTratamientoNutricionById(long Id);
-    
+    TratamientoNutricionDtos getTratamientoNutricionById(Long Id);
+    List<TratamientoNutricionDtos> getAllTratamientoNutricionHabilitadosByIdTratamiento(Long id);
+    List<TratamientoNutricionDtos> getAllTratamientoNutricionHabilitados();
 }

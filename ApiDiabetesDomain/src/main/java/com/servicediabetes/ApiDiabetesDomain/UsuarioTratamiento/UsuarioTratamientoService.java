@@ -4,6 +4,8 @@
  */
 package com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento;
 
+import java.util.List;
+
 /**
  *
  * @author Usuario
@@ -11,6 +13,5 @@ package com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento;
 public interface UsuarioTratamientoService {
     UsuarioTratamientoDtos createUsuarioTratamiento(UsuarioTratamiento Request);
     UsuarioTratamientoDtos getUsuarioTratamientoById(long Id);
-    
-    
+    List<UsuarioTratamientoDtos> getAllUsuarioTratamientoHabilitados();
 }

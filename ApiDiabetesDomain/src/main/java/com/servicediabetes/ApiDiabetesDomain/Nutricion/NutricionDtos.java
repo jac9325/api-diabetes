@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 public class NutricionDtos {
-    private long id_nutricion;
+    private Long id_nutricion;
     private String tipo_comida;
     private Date fecha;
     private String descripcion;

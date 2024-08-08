@@ -4,6 +4,9 @@
  */
 package com.servicediabetes.ApiDiabetesDomain.TratamientoNutricion;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +21,13 @@ public class TratamientoNutricionUtils {
         current.setId_tratamiento_nutricion(tratamiento.getId_tratamiento_nutricion());
         current.setId_tratamiento(tratamiento.getTratamiento().getId_tratamiento());
         current.setId_nutricion(tratamiento.getNutricion().getId_nutricion());
+        current.setEstado(tratamiento.getEstado());
         return current;
+    }
+    
+    public  List<TratamientoNutricionDtos> convertToDtoList(List<TratamientoNutricion> listTratamientoNutricion) {
+        return listTratamientoNutricion.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 }

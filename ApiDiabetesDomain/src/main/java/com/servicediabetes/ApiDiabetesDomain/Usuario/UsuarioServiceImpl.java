@@ -1,66 +1,34 @@
-<<<<<<< HEAD
 package com.servicediabetes.ApiDiabetesDomain.Usuario;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioRequest;
-import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioResponse;
-import com.servicediabetes.ApiDiabetesDomain.Usuario.Helpers.CastUser;
-
-@Service
-public class UsuarioServiceImpl implements UsuarioService {
-    private final CastUser castUser;
-
-    @Autowired
-    public UsuarioServiceImpl(CastUser castUser) {
-        this.castUser = castUser;
-    }
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Transactional
-    @Override
-    public UsuarioResponse registerUser(UsuarioRequest userRequest){
-
-        try {
-            if (userRequest == null) {
-                return null;
-            }
-            Usuario currentUsuario = castUser.castUsuarioRequestToUsuario(userRequest);
-            currentUsuario = usuarioRepository.save(currentUsuario);
-            UsuarioResponse currentUserResponse = castUser.castUsuarioResponse(currentUsuario);
-
-            return currentUserResponse;
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-    
-}
-=======
-package com.servicediabetes.ApiDiabetesDomain.Usuario;
-
+import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.servicediabetes.ApiDiabetesDomain.DTO.DatosGenericos;
+import com.servicediabetes.ApiDiabetesDomain.DTO.DatosGenericosAdministrador;
+import com.servicediabetes.ApiDiabetesDomain.DTO.DatosGenericosPaciente;
 import com.servicediabetes.ApiDiabetesDomain.Ejercicio.EjercicioDtos;
 import com.servicediabetes.ApiDiabetesDomain.Ejercicio.EjercicioService;
 import com.servicediabetes.ApiDiabetesDomain.Farmaco.FarmacoDtos;
 import com.servicediabetes.ApiDiabetesDomain.Farmaco.FarmacoService;
 import com.servicediabetes.ApiDiabetesDomain.Nutricion.NutricionDtos;
 import com.servicediabetes.ApiDiabetesDomain.Nutricion.NutricionService;
+import com.servicediabetes.ApiDiabetesDomain.Tratamiento.TratamientoService;
+import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Dtos.TratamientoDtos;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Config.UsuarioConfigSecurity;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioRequest;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioResponse;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Helpers.CastUser;
+import java.util.Calendar;
 
 import lombok.AllArgsConstructor;
 
@@ -69,10 +37,11 @@ import lombok.AllArgsConstructor;
 public class UsuarioServiceImpl implements UsuarioService {
     private final CastUser castUser;
     private final UsuarioRepository usuarioRepository;
-    private final UsuarioRepositoryHb userRepositoryHb;
+    private final UsuarioRepositoryHb usuarioRepositoryHb;
     private final FarmacoService farmacoService;
     private final EjercicioService ejercicioService;
     private final NutricionService nutricionService;
+    private final TratamientoService tratamientoService;
 
     private final static String UPLOADS_FOLDER = "uploads/images";
 
@@ -81,12 +50,21 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponse registerUser(UsuarioRequest userRequest){
 
         try {
-            if (userRequest == null) {
+            if (userRequest == null || userRequest.getContrasena() == null || userRequest.getCorreo() == null) {
                 return null;
             }
             Usuario currentUsuario = castUser.castUsuarioRequestToUsuario(userRequest);
             String passwordEncode = UsuarioConfigSecurity.encode(currentUsuario.getContrasena());
             currentUsuario.setContrasena(passwordEncode);
+
+            currentUsuario.setNombre_apellido(currentUsuario.getNombre_apellido() != null ? currentUsuario.getNombre_apellido() : "Sin Asignar");
+            currentUsuario.setNumero(currentUsuario.getNumero() != null ? currentUsuario.getNumero() : "000000000");
+            currentUsuario.setEdad(currentUsuario.getEdad() != null ? currentUsuario.getEdad() : 00);
+            currentUsuario.setFecha_nacimiento(currentUsuario.getFecha_nacimiento() != null ? currentUsuario.getFecha_nacimiento() : new Date());
+            currentUsuario.setFecha_registro_app(currentUsuario.getFecha_registro_app() != null ? currentUsuario.getFecha_registro_app() :new Date());
+            currentUsuario.setAltura(currentUsuario.getAltura() != null ? currentUsuario.getAltura() : BigDecimal.ZERO);
+            currentUsuario.setPeso(currentUsuario.getPeso() != null? currentUsuario.getPeso() : BigDecimal.ZERO);
+            currentUsuario.setAlergias(currentUsuario.getAlergias() != null? currentUsuario.getAlergias() : "Sin Asignar");
             currentUsuario = usuarioRepository.save(currentUsuario);
             UsuarioResponse currentUserResponse = castUser.castUsuarioResponse(currentUsuario);
 
@@ -100,7 +78,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResponse getUserById(Long id) {
         try {
-            Usuario user = userRepositoryHb.getUserById(id);
+            Usuario user = usuarioRepositoryHb.getUserById(id);
             UsuarioResponse currentUsuarioResponse = castUser.castUsuarioResponse(user);
             if(currentUsuarioResponse == null){
                 return null;
@@ -136,7 +114,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponse updateUser(Long id, UsuarioRequest userRequest){
         try {
             //primeramente se buscar Usuario mediante el id
-            Usuario user = userRepositoryHb.getUserById(id);
+            Usuario user = usuarioRepositoryHb.getUserById(id);
             if (user == null) {
                 return null;
             } else {
@@ -173,7 +151,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Boolean deleteUser(Long id) {
         try {
-            Usuario user = userRepositoryHb.getUserById(id);
+            Usuario user = usuarioRepositoryHb.getUserById(id);
             if (user == null) {
                 return false;
             } else {
@@ -193,22 +171,81 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Transactional
     @Override
-    public DatosGenericos getAllFarmacoEjercicioNutricion(){
+    public DatosGenericosPaciente getAllDatosPaciente(Long id){
         try {
-            List<FarmacoDtos> currentFarmaco = farmacoService.getAllFarmaco();
-            List<EjercicioDtos> currentEjercicio = ejercicioService.getAllEjercicio();
-            List<NutricionDtos> currentNutricion = nutricionService.getAllNutricion();
+            if (id <= 0)
+                return null;
 
-            DatosGenericos currentDatosGenericos = new DatosGenericos();
-            currentDatosGenericos.setFarmaco(currentFarmaco);
-            currentDatosGenericos.setEjercicio(currentEjercicio);
-            currentDatosGenericos.setNutricion(currentNutricion);
+            Usuario currentUsuario = usuarioRepositoryHb.getUserById(id);
 
-            return currentDatosGenericos;  
+            if (currentUsuario == null || (!currentUsuario.getRolUsuario().getNombre().equals("ROL_PACIENTE")))
+                return null;
 
+                List<TratamientoDtos> currentTratamientos = tratamientoService.getAllTratamiento();
+                List<FarmacoDtos> currentFarmaco = farmacoService.getAllFarmaco();
+                List<EjercicioDtos> currentEjercicio = ejercicioService.getAllEjercicio();
+                List<NutricionDtos> currentNutricion = nutricionService.getAllNutricion();
+    
+                DatosGenericos currentDatosGenericos = new DatosGenericos();
+                currentDatosGenericos.setTratamiento(currentTratamientos);
+                currentDatosGenericos.setFarmaco(currentFarmaco);
+                currentDatosGenericos.setEjercicio(currentEjercicio);
+                currentDatosGenericos.setNutricion(currentNutricion);
+            
+            // Obtengo el tratamiento por Usuario, luego convierto a Dto
+            TratamientoDtos currentTratamiento = tratamientoService.getTratamientoHabilitadoByIdUsuario(id);
+            
+            if (currentTratamiento == null) {
+                DatosGenericosPaciente currentDatosGenericosPaciente = new DatosGenericosPaciente();
+                currentDatosGenericosPaciente.setDatosGenericos(currentDatosGenericos);
+                return currentDatosGenericosPaciente;
+            } else {                
+                DatosGenericosPaciente currentDatosGenericosPaciente = new DatosGenericosPaciente();
+                currentDatosGenericosPaciente.setDatosGenericos(currentDatosGenericos);
+                currentDatosGenericosPaciente.setTratamiento(currentTratamiento);
+                return currentDatosGenericosPaciente;
+            }
+            
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional
+    @Override
+    public DatosGenericosAdministrador getAllDatosAdministrador(Long id) {
+        try {
+            if (id <= 0)
+                return null;
+
+            Usuario currentUsuario = usuarioRepositoryHb.getUserById(id);
+
+            if (currentUsuario == null || (!currentUsuario.getRolUsuario().getNombre().equals("ROL_ADMIN")))
+                return null;
+            
+                List<TratamientoDtos> currentTratamientos = tratamientoService.getAllTratamiento();
+                List<FarmacoDtos> currentFarmaco = farmacoService.getAllFarmaco();
+                List<EjercicioDtos> currentEjercicio = ejercicioService.getAllEjercicio();
+                List<NutricionDtos> currentNutricion = nutricionService.getAllNutricion();
+    
+                DatosGenericos currentDatosGenericos = new DatosGenericos();
+                currentDatosGenericos.setTratamiento(currentTratamientos);
+                currentDatosGenericos.setFarmaco(currentFarmaco);
+                currentDatosGenericos.setEjercicio(currentEjercicio);
+                currentDatosGenericos.setNutricion(currentNutricion);
+            
+            // Obtengo la lista de Usuarios Response, luego convierto la lista en dtos
+            List<UsuarioResponse> currentListUsuario = castUser.castListUserResponse(usuarioRepositoryHb.getUsuariosHabilitados());
+            if (currentListUsuario == null)
+                return null;
+            
+            DatosGenericosAdministrador currentDatosGenericosAdministrador = new DatosGenericosAdministrador();
+            currentDatosGenericosAdministrador.setDatosGenericos(currentDatosGenericos);
+            currentDatosGenericosAdministrador.setUsuario(currentListUsuario);
+
+            return currentDatosGenericosAdministrador;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 }
->>>>>>> master

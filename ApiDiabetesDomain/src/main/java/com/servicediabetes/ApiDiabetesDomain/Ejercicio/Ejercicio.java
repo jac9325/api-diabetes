@@ -29,7 +29,7 @@ public class Ejercicio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_ejercicio")
-    private long id_ejercicio;
+    private Long id_ejercicio;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;

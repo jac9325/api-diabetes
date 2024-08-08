@@ -5,6 +5,7 @@ package com.servicediabetes.ApiDiabetesDomain.Tratamiento;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
@@ -50,7 +51,24 @@ public class TratamientoRepositoryHb {
         List<Tratamiento> tratamientos = query.getResultList();
         return tratamientos;
     }
+
+    public List<Tratamiento> getAllTratamientosHabilitados(){
+        String hql = "SELECT t FROM Tratamiento t WHERE t.estado = 1";
+        Query query = entityManager.createQuery(hql, Tratamiento.class);
+        List<Tratamiento> tratamientos = query.getResultList();
+        return tratamientos;
+    }
     
-    // Agrega aquí tus nuevos métodos o realiza las modificaciones necesarias
+    public Tratamiento getTratamientoHabilitadoByIdUsuario(Long id) {
+        try {
+            String hql = "SELECT t.tratamiento FROM UsuarioTratamiento t WHERE t.usuario. id_usuario =: id and t.estado = 1";
+            Query query = entityManager.createQuery(hql, Tratamiento.class)
+                            .setParameter("id", id);
+            Tratamiento tratamiento = (Tratamiento) query.getSingleResult();
+            return tratamiento;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
     
 }
