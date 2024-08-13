@@ -24,6 +24,7 @@ public class CastUser {
         usuario.setContrasena(usuarioRequest.getContrasena());
         usuario.setFecha_nacimiento(usuarioRequest.getFecha_nacimiento()); 
         usuario.setFecha_registro_app(new Date());
+        usuario.setInicio_diabetes(usuarioRequest.getInicio_diabetes());
         usuario.setAltura(usuarioRequest.getAltura());
         usuario.setPeso(usuarioRequest.getAltura());
         usuario.setAlergias(usuarioRequest.getAlergias());
@@ -46,6 +47,7 @@ public class CastUser {
         usuarioResponse.setCorreo(usuario.getCorreo());
         usuarioResponse.setEdad(usuario.getEdad());
         usuarioResponse.setFecha_nacimiento(usuario.getFecha_nacimiento());
+        usuarioResponse.setInicio_diabetes(usuario.getInicio_diabetes());
         usuarioResponse.setFecha_registro_app(usuario.getFecha_registro_app());
         usuarioResponse.setAltura(usuario.getAltura());
         usuarioResponse.setPeso(usuario.getPeso());

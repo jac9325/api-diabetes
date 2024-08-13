@@ -53,6 +53,9 @@ public class Usuario {
 
     @Column(name = "fecha_nacimiento", nullable = false)
     private Date fecha_nacimiento;
+
+    @Column(name = "inicio_diabetes", nullable = false)
+    private Date inicio_diabetes;
     
     @Column(name = "fecha_registro_app")
     private Date fecha_registro_app;

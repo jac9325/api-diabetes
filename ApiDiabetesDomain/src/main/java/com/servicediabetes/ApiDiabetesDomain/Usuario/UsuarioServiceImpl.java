@@ -1,14 +1,8 @@
 package com.servicediabetes.ApiDiabetesDomain.Usuario;
 
 import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +22,6 @@ import com.servicediabetes.ApiDiabetesDomain.Usuario.Config.UsuarioConfigSecurit
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioRequest;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioResponse;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Helpers.CastUser;
-import java.util.Calendar;
 
 import lombok.AllArgsConstructor;
 
@@ -42,8 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final EjercicioService ejercicioService;
     private final NutricionService nutricionService;
     private final TratamientoService tratamientoService;
-
-    private final static String UPLOADS_FOLDER = "uploads/images";
 
     @Transactional
     @Override
@@ -59,15 +50,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 
             currentUsuario.setNombre_apellido(currentUsuario.getNombre_apellido() != null ? currentUsuario.getNombre_apellido() : "Sin Asignar");
             currentUsuario.setNumero(currentUsuario.getNumero() != null ? currentUsuario.getNumero() : "000000000");
+            currentUsuario.setCorreo(currentUsuario.getCorreo() != null ? currentUsuario.getCorreo() : "Sin Asignar");
             currentUsuario.setEdad(currentUsuario.getEdad() != null ? currentUsuario.getEdad() : 00);
-            currentUsuario.setFecha_nacimiento(currentUsuario.getFecha_nacimiento() != null ? currentUsuario.getFecha_nacimiento() : new Date());
-            currentUsuario.setFecha_registro_app(currentUsuario.getFecha_registro_app() != null ? currentUsuario.getFecha_registro_app() :new Date());
+            currentUsuario.setFecha_nacimiento(new Date());
+            currentUsuario.setInicio_diabetes(currentUsuario.getInicio_diabetes() != null ? currentUsuario.getInicio_diabetes() : new Date());
             currentUsuario.setAltura(currentUsuario.getAltura() != null ? currentUsuario.getAltura() : BigDecimal.ZERO);
             currentUsuario.setPeso(currentUsuario.getPeso() != null? currentUsuario.getPeso() : BigDecimal.ZERO);
             currentUsuario.setAlergias(currentUsuario.getAlergias() != null? currentUsuario.getAlergias() : "Sin Asignar");
+            currentUsuario.setFoto_usuario(currentUsuario.getFoto_usuario() != null ? currentUsuario.getFoto_usuario() : "default_image.png");
             currentUsuario = usuarioRepository.save(currentUsuario);
             UsuarioResponse currentUserResponse = castUser.castUsuarioResponse(currentUsuario);
-
             return currentUserResponse;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
@@ -130,6 +122,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                     user.setContrasena(user.getContrasena());
                 }
                 user.setFecha_nacimiento(userRequest.getFecha_nacimiento() != null ? userRequest.getFecha_nacimiento() : user.getFecha_nacimiento());
+                user.setInicio_diabetes(userRequest.getInicio_diabetes() != null ? userRequest.getInicio_diabetes() : user.getInicio_diabetes());
                 user.setAltura(userRequest.getAltura() != null ? userRequest.getAltura() : user.getAltura());
                 user.setPeso(userRequest.getPeso() != null ? userRequest.getPeso() : user.getPeso());
                 user.setAlergias(userRequest.getAlergias() != null ? userRequest.getAlergias() : user.getAlergias());
@@ -163,11 +156,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
     }
 
-    @Transactional
-    @Override
-    public Path getURL(){
-        return Paths.get(UPLOADS_FOLDER);
-    }
+    // @Transactional
+    // @Override
+    // public Path getURL(){
+    //     return Paths.get(UPLOADS_FOLDER);
+    // }
 
     @Transactional
     @Override

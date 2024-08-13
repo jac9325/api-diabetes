@@ -13,6 +13,7 @@ public class UsuarioRequest {
     private Integer edad;
     private String contrasena;
     private Date fecha_nacimiento;
+    private Date inicio_diabetes;
     private Date fecha_registro_app;
     private BigDecimal altura;
     private BigDecimal peso;

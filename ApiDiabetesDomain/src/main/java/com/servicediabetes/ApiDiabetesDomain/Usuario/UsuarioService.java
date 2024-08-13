@@ -1,6 +1,5 @@
 package com.servicediabetes.ApiDiabetesDomain.Usuario;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import com.servicediabetes.ApiDiabetesDomain.DTO.DatosGenericosAdministrador;
@@ -14,7 +13,7 @@ public interface UsuarioService {
     List<UsuarioResponse> getAllUsers();
     UsuarioResponse updateUser(Long id, UsuarioRequest userRequest);
     Boolean deleteUser(Long id);
-    Path getURL();
+    //Path getURL();
     DatosGenericosPaciente getAllDatosPaciente(Long id);
     DatosGenericosAdministrador getAllDatosAdministrador(Long id);
 }

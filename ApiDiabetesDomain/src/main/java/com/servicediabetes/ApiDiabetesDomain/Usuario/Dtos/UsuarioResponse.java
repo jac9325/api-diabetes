@@ -13,6 +13,7 @@ public class UsuarioResponse {
     private String correo;
     private Integer edad;
     private Date fecha_nacimiento;
+    private Date inicio_diabetes;
     private Date fecha_registro_app;
     private BigDecimal altura;
     private BigDecimal peso;
