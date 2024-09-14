@@ -16,10 +16,6 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-        <configuration>
-                <executable>true</executable>
-                <jvmArguments>-Dfile.encoding=UTF8 -Dspring.profiles.active="production"</jvmArguments>
-            </configuration>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

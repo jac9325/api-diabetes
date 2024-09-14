@@ -10,10 +10,12 @@ import java.util.UUID;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class ProfileImageServiceImpl implements ProfileImageService{
     private final static String UPLOADS_FOLDER = "uploads/images";
 

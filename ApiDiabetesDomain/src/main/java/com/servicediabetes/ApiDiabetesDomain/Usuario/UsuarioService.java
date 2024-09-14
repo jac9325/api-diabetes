@@ -16,4 +16,5 @@ public interface UsuarioService {
     //Path getURL();
     DatosGenericosPaciente getAllDatosPaciente(Long id);
     DatosGenericosAdministrador getAllDatosAdministrador(Long id);
+    UsuarioResponse getUserByEmail(String email);
 }

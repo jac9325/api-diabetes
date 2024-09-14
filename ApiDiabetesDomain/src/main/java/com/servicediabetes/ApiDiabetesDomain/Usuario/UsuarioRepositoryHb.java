@@ -29,4 +29,13 @@ public class UsuarioRepositoryHb {
         List<Usuario> users = query.getResultList();
         return users;
     }
+
+    public Usuario getUserByEmail(String email) {
+        String hql = "SELECT u FROM Usuario u WHERE u.correo =: email";
+        Query query = entityManager.createQuery(hql, Usuario.class)
+                .setParameter("email", email);
+        
+        Usuario user = (Usuario) query.getSingleResult();
+        return user;
+    }
 }

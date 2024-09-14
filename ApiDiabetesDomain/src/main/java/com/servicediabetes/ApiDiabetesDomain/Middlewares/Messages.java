@@ -1,10 +1,14 @@
 
 package com.servicediabetes.ApiDiabetesDomain.Middlewares;
 
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author HP
  */
+
+@Component
 public class Messages {
      public String ok(){
         return "ok";

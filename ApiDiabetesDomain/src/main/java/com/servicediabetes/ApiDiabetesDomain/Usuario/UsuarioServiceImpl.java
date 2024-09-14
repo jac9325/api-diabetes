@@ -241,4 +241,22 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Transactional(readOnly=true)
+    @Override
+    public UsuarioResponse getUserByEmail(String email) {
+        try {
+            Usuario user = usuarioRepositoryHb.getUserByEmail(email);
+            UsuarioResponse currentUsuarioResponse = castUser.castUsuarioResponse(user);
+            if(currentUsuarioResponse == null){
+                return null;
+            }else{
+                // Preparar el DTO Response
+                return currentUsuarioResponse;
+            }
+            
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

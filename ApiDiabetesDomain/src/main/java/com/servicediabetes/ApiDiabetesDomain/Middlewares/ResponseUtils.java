@@ -1,6 +1,7 @@
 package com.servicediabetes.ApiDiabetesDomain.Middlewares;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -8,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
+
+@Component
 public class ResponseUtils {
     /**
      * @author Areli Shalon Paredes Curasco

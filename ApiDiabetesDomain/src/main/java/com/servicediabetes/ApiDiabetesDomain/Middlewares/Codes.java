@@ -1,9 +1,14 @@
 package com.servicediabetes.ApiDiabetesDomain.Middlewares;
+
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author HP
  */
 /* Codigos regurlamente requeridos*/
+
+@Component
 public class Codes {
    
     public int ok(){
