@@ -25,8 +25,8 @@ public class FarmacoUtils {
         current.setTipo(farmaco.getTipo());
         current.setContraindicaciones(farmaco.getContraindicaciones());
         current.setIndicaciones(farmaco.getIndicaciones());
-        current.setTimepoInicio(farmaco.getTimepoinicio());
-        current.setEfectosSecundarios(farmaco.getEfectossecundarios());
+        current.setTiempoinicio(farmaco.getTimepoinicio());
+        current.setEfectossecundarios(farmaco.getEfectossecundarios());
         current.setEstado(farmaco.getEstado());
         return current;
     }

@@ -60,4 +60,17 @@ public class FarmacoController {
         }
     }
     
+    @GetMapping("/getFarmacosByIdTratamiento/{idTratamiento}")
+    public ResponseEntity<?> getFarmacosByIdTratamiento(@PathVariable(value = "idTratamiento") Long idTratamiento) {
+        try {
+            List<FarmacoDtos> listFarmaco = farmacoService.getFarmacosByIdTratamiento(idTratamiento);
+            if (listFarmaco.isEmpty()) {
+                return response.error(codes.notFound(), messages.notFound(), null);
+            } else {
+                return response.ok(codes.ok(), messages.ok(), listFarmaco, null);
+            }
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 }

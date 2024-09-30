@@ -49,6 +49,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/usuario/").permitAll()   
                 //.requestMatchers(HttpMethod.GET, "/api/usuario/getUserByEmail/{email}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/usuario/goImage/{filename}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/articulo/goImage/{filename}").permitAll()
                 //.requestMatchers(HttpMethod.GET, "/api/usuario/getUrlImage/{filename}").permitAll()
                 //.requestMatchers(HttpMethod.GET, "/api/usuario/UrlImage/{filename}").permitAll()
 

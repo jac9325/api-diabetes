@@ -14,5 +14,6 @@ public interface NutricionService {
     
     NutricionDtos getNutricionById(Long id);
     List<NutricionDtos> getAllNutricion();
-    
+    List<NutricionDtos> getListNutricionByIdUsuario(Long id);
+    List<NutricionDtos> getListNutricionByIdTratamiento(Long id);
 }

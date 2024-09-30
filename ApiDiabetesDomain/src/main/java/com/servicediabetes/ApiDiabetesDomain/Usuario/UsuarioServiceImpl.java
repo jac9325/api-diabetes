@@ -16,12 +16,18 @@ import com.servicediabetes.ApiDiabetesDomain.Farmaco.FarmacoDtos;
 import com.servicediabetes.ApiDiabetesDomain.Farmaco.FarmacoService;
 import com.servicediabetes.ApiDiabetesDomain.Nutricion.NutricionDtos;
 import com.servicediabetes.ApiDiabetesDomain.Nutricion.NutricionService;
+import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Tratamiento;
+import com.servicediabetes.ApiDiabetesDomain.Tratamiento.TratamientoRepository;
+import com.servicediabetes.ApiDiabetesDomain.Tratamiento.TratamientoRepositoryHb;
 import com.servicediabetes.ApiDiabetesDomain.Tratamiento.TratamientoService;
 import com.servicediabetes.ApiDiabetesDomain.Tratamiento.Dtos.TratamientoDtos;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Config.UsuarioConfigSecurity;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioRequest;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Dtos.UsuarioResponse;
 import com.servicediabetes.ApiDiabetesDomain.Usuario.Helpers.CastUser;
+import com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento.UsuarioTratamiento;
+import com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento.UsuarioTratamientoDtos;
+import com.servicediabetes.ApiDiabetesDomain.UsuarioTratamiento.UsuarioTratamientoService;
 
 import lombok.AllArgsConstructor;
 
@@ -35,6 +41,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final EjercicioService ejercicioService;
     private final NutricionService nutricionService;
     private final TratamientoService tratamientoService;
+    private final UsuarioTratamientoService usuarioTratamientoService;
+    private final TratamientoRepositoryHb tratamientoRepositoryHb;
 
     @Transactional
     @Override
@@ -59,6 +67,18 @@ public class UsuarioServiceImpl implements UsuarioService {
             currentUsuario.setAlergias(currentUsuario.getAlergias() != null? currentUsuario.getAlergias() : "Sin Asignar");
             currentUsuario.setFoto_usuario(currentUsuario.getFoto_usuario() != null ? currentUsuario.getFoto_usuario() : "default_image.png");
             currentUsuario = usuarioRepository.save(currentUsuario);
+
+            // Creo la relación entre el tratamiento y usuario
+            UsuarioTratamiento currentUsuarioTratamiento = new UsuarioTratamiento();
+            Tratamiento currentTratamiento = tratamientoRepositoryHb.getTratamientoById((long) 1);
+            currentUsuarioTratamiento.setTratamiento(currentTratamiento);
+            currentUsuarioTratamiento.setUsuario(currentUsuario);
+            currentUsuarioTratamiento.setEstado(1);
+            UsuarioTratamientoDtos currentUsuarioTratamientoDtos = usuarioTratamientoService.createUsuarioTratamiento(currentUsuarioTratamiento);
+
+            if (currentUsuario == null && currentUsuarioTratamientoDtos == null)
+                return null;
+                
             UsuarioResponse currentUserResponse = castUser.castUsuarioResponse(currentUsuario);
             return currentUserResponse;
         } catch (Exception e) {

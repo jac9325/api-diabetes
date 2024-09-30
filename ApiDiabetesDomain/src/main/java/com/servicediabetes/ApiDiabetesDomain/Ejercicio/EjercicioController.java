@@ -98,5 +98,32 @@ public class EjercicioController {
             return response.error(codes.error(), messages.error() + e.getMessage(), null);
         }
     }
-    
+
+    @GetMapping("/getEjerciciosByIdUsuario/{idUsuario}")
+    public ResponseEntity<?> getEjerciciosByIdUsuario(@PathVariable(value = "idUsuario") Long idUsuario) {
+        try {
+            List<EjercicioDtos> listEjercicio = ejercicioService.getEjerciciosByIdUsuario(idUsuario);
+            if (listEjercicio.isEmpty()) {
+                return response.error(codes.notFound(), messages.notFound(), null);
+            } else {
+                return response.ok(codes.ok(), messages.ok(), listEjercicio, null);
+            }
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
+
+    @GetMapping("/getEjerciciosByIdTratamiento/{idTratamiento}")
+    public ResponseEntity<?> getEjerciciosByIdTratamiento(@PathVariable(value = "idTratamiento") Long idTratamiento) {
+        try {
+            List<EjercicioDtos> listEjercicio = ejercicioService.getEjerciciosByIdTratamiento(idTratamiento);
+            if (listEjercicio.isEmpty()) {
+                return response.error(codes.notFound(), messages.notFound(), null);
+            } else {
+                return response.ok(codes.ok(), messages.ok(), listEjercicio, null);
+            }
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 }

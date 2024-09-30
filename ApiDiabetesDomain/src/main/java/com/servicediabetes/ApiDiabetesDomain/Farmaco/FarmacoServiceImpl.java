@@ -5,23 +5,27 @@
 package com.servicediabetes.ApiDiabetesDomain.Farmaco;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.servicediabetes.ApiDiabetesDomain.Ejercicio.Ejercicio;
+import com.servicediabetes.ApiDiabetesDomain.Ejercicio.EjercicioDtos;
+
+import lombok.AllArgsConstructor;
 
 /**
  *
  * @author Usuario
  */
 @Service
+@AllArgsConstructor
 public class FarmacoServiceImpl implements FarmacoService{
     
     private final FarmacoUtils farmacoUtils;
     private final FarmacoRepositoryHb farmacoRepositoryHb;
-    
-    public FarmacoServiceImpl(FarmacoUtils farmacoUtils, FarmacoRepositoryHb farmacoRepositoryHb) {
-        this.farmacoUtils = farmacoUtils;
-        this.farmacoRepositoryHb = farmacoRepositoryHb;
-    }
+    private final FarmacoRepository farmacoRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -62,4 +66,19 @@ public class FarmacoServiceImpl implements FarmacoService{
         }
     }
     
+    @Transactional(readOnly = true)
+    @Override
+    public List<FarmacoDtos> getFarmacosByIdTratamiento(Long id) {
+        try {
+            Optional<List<Farmaco>> listResult = farmacoRepository.getFarmacosByIdTratamiento(id);
+            if (listResult.isEmpty()) {
+                return null;
+            } else {
+                List<FarmacoDtos> response = farmacoUtils.convertToDtoList(listResult.orElse(null));
+                return response;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

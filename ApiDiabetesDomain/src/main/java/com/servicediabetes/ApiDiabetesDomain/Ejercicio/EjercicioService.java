@@ -16,4 +16,6 @@ public interface EjercicioService {
     EjercicioDtos createEjercicio(EjercicioDtos request);
     Boolean deleteEjercicio(Long id);
     EjercicioDtos updateEjercicio(Long id, EjercicioDtos request);
+    List<EjercicioDtos> getEjerciciosByIdUsuario(Long id);
+    List<EjercicioDtos> getEjerciciosByIdTratamiento(Long id);
 }

@@ -56,5 +56,4 @@ public class Articulo {
     
     @Column(name = "estado", nullable = false)
     private Integer estado;
-
 }

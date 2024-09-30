@@ -103,4 +103,17 @@ public class TratamientoController {
             return response.error(codes.error(),messages.error() + e.getMessage(), null);
         }
     }
+
+    @GetMapping("/getTratamientoHabilitadoByIdUsuario/{id}")
+    public ResponseEntity<?> getTratamientoHabilitadoByIdUsuario(@PathVariable(value = "id") Long id) {
+        try {
+            TratamientoDtos tratamiento = tratamientoService.getTratamientoHabilitadoByIdUsuario(id);
+            if (tratamiento == null)
+                return response.error(codes.notFound(), messages.notFound(), null);
+            else
+                return response.ok(codes.ok(), messages.ok(), tratamiento, null);
+        } catch (Exception e) {
+            return response.error(codes.error(), messages.error() + e.getMessage(), null);
+        }
+    }
 }

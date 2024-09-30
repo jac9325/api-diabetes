@@ -5,23 +5,25 @@
 package com.servicediabetes.ApiDiabetesDomain.Nutricion;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lombok.AllArgsConstructor;
 
 /**
  *
  * @author Usuario
  */
 @Service
+@AllArgsConstructor
 public class NutricionServiceImpl implements NutricionService {
     
     private final NutricionUtils nutricionUtils;
     private final NutricionRepositoryHb nutricionRepositoryHb;
+    private final NutricionRepository nutricionRepository;
     
-    public NutricionServiceImpl(NutricionUtils nutricionUtils, NutricionRepositoryHb nutricionRepositoryHb) {
-        this.nutricionUtils = nutricionUtils;
-        this.nutricionRepositoryHb = nutricionRepositoryHb;
-    }
 
     @Transactional(readOnly = true)
     @Override
@@ -62,4 +64,35 @@ public class NutricionServiceImpl implements NutricionService {
         }
     }
     
+    @Transactional(readOnly = true)
+    @Override
+    public List<NutricionDtos> getListNutricionByIdUsuario(Long id) {
+        try {
+            Optional<List<Nutricion>> listResult = nutricionRepository.getListNutricionByIdUsuario(id);
+            if (listResult.isEmpty()) {
+                return null;
+            } else {
+                List<NutricionDtos> response = nutricionUtils.convertToDtoList(listResult.orElse(null));
+                return response;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<NutricionDtos> getListNutricionByIdTratamiento(Long id) {
+        try {
+            Optional<List<Nutricion>> listResult = nutricionRepository.getListNutricionByIdTratamiento(id);
+            if (listResult.isEmpty()) {
+                return null;
+            } else {
+                List<NutricionDtos> response = nutricionUtils.convertToDtoList(listResult.orElse(null));
+                return response;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }

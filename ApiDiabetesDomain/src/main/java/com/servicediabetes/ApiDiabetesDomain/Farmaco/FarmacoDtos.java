@@ -22,8 +22,8 @@ public class FarmacoDtos {
     private String tipo;
     private String contraindicaciones;
     private String indicaciones;
-    private Date timepoInicio;
-    private String efectosSecundarios;
+    private Date tiempoinicio;
+    private String efectossecundarios;
     private Integer estado;
     
 }

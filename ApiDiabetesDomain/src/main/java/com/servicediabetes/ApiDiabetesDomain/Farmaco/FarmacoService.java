@@ -13,5 +13,5 @@ import java.util.List;
 public interface FarmacoService {
     List<FarmacoDtos> getAllFarmaco();
     FarmacoDtos getFarmacoById(Long id);
-    
+    List<FarmacoDtos> getFarmacosByIdTratamiento(Long id);
 }

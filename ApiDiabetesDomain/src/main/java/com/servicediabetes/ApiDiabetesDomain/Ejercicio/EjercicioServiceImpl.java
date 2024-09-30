@@ -5,6 +5,8 @@
 package com.servicediabetes.ApiDiabetesDomain.Ejercicio;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +44,6 @@ public class EjercicioServiceImpl implements EjercicioService{
             throw new RuntimeException(e.getMessage());
         }
     }
-    
     
     @Transactional(readOnly = true)
     @Override
@@ -122,7 +123,37 @@ public class EjercicioServiceImpl implements EjercicioService{
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        
     }
-    
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<EjercicioDtos> getEjerciciosByIdUsuario(Long id) {
+        try {
+            Optional<List<Ejercicio>> listResult = ejercicioRepository.getEjerciciosByIdUsuario(id);
+            if (listResult.isEmpty()) {
+                return null;
+            } else {
+                List<EjercicioDtos> response = ejercicioUtils.convertToDtoList(listResult.orElse(null));
+                return response;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<EjercicioDtos> getEjerciciosByIdTratamiento(Long id) {
+        try {
+            Optional<List<Ejercicio>> listResult = ejercicioRepository.getEjerciciosByIdTratamiento(id);
+            if (listResult.isEmpty()) {
+                return null;
+            } else {
+                List<EjercicioDtos> response = ejercicioUtils.convertToDtoList(listResult.orElse(null));
+                return response;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
